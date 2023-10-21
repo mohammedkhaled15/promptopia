@@ -16,7 +16,7 @@ const MyProfile = () => {
       setPosts(data)
     }
     if (session?.user.id) getPosts()
-  }, [])
+  }, [session?.user])
 
   const handleEdit = () => {
 
@@ -28,7 +28,7 @@ const MyProfile = () => {
 
   return (
     <Profile
-      name={session.name}
+      name={session?.user?.name}
       desc="Welcome to your personalized profile page"
       data={posts}
       handleEdit={handleEdit}
