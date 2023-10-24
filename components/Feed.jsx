@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
+import { revalidatePath } from "next/cache"
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -54,6 +55,7 @@ const Feed = () => {
       const data = await response.json()
       setPosts(data)
       setSearchResults(data)
+      revalidatePath("/")
     }
     getPosts()
   }, [])
