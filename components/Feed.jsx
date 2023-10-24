@@ -50,7 +50,7 @@ const Feed = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch("/api/prompt")
+      const response = await fetch("/api/prompt", { cache: "no-store" })
       const data = await response.json()
       setPosts(data)
       setSearchResults(data)
