@@ -1,12 +1,11 @@
-import { getAuthSession } from "@app/api/auth/[...nextauth]/route"
+"use client"
 import PromptCard from "./PromptCard"
 
-const Profile = async ({ name, desc, data, handleEdit, handleDelete }) => {
-  const session = await getAuthSession()
+const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
   return (
     <section className="w-full">
       <h1 className="head_text text-left">
-        <span className="blue_gradient">{name === session?.user?.name ? "My" : name} Profile</span>
+        <span className="blue_gradient">{name} Profile</span>
       </h1>
       <p className="desc text-left">
         {desc}
@@ -16,8 +15,8 @@ const Profile = async ({ name, desc, data, handleEdit, handleDelete }) => {
           <PromptCard
             key={post._id}
             post={post}
-            handleEdit={handleEdit && (() => { handleEdit(post) })}
-            handleDelete={handleDelete && (() => { handleDelete(post) })}
+            handleEdit={() => handleEdit && handleEdit(post)}
+            handleDelete={() => handleDelete && handleDelete(post)}
           />
         ))}
       </div>
