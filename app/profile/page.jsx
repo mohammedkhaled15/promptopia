@@ -33,8 +33,6 @@ const MyProfile = () => {
         })
         const filteredPosts = posts.filter(p => p.id !== post._id)
         setPosts(filteredPosts)
-        // revalidatePath("/profile")
-
       } catch (error) {
         console.log(error)
       }

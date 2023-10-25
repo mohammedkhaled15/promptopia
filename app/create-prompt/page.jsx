@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import Form from "@components/Form"
+import { revalidatePath } from "next/cache"
 
 const CratePropmpt = () => {
   const router = useRouter()
@@ -21,12 +22,12 @@ const CratePropmpt = () => {
         method: "POST",
         body: JSON.stringify({
           prompt: post.prompt,
-          // userId: session?.user.id,
           tag: post.tag
         })
       })
       if (res.ok) {
         router.push("/")
+        revalidatePath("/")
       }
     } catch (error) {
       console.log(error)
