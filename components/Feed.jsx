@@ -60,13 +60,13 @@ const Feed = () => {
     setSearchResults(filterPosts(tagName))
   }
 
+  const getPosts = async () => {
+    const response = await fetch("/api/prompt", { cache: "no-store", next: { revalidate: 1 } })
+    const data = await response.json()
+    setPosts(data)
+    setSearchResults(data)
+  }
   useEffect(() => {
-    const getPosts = async () => {
-      const response = await fetch("/api/prompt", { cache: "no-store", next: { revalidate: 1 } })
-      const data = await response.json()
-      setPosts(data)
-      setSearchResults(data)
-    }
     getPosts()
   }, [])
 
@@ -83,10 +83,17 @@ const Feed = () => {
         />
       </form>
 
-      <PromptCardList
-        data={searchResults}
-        handleTagClick={handleTagClick}
-      />
+      {
+        searchText
+          ? <PromptCardList
+            data={searchResults}
+            handleTagClick={handleTagClick}
+          />
+          : <PromptCardList
+            data={posts}
+            handleTagClick={handleTagClick}
+          />
+      }
     </section>
   )
 }
