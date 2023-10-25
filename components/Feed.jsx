@@ -27,13 +27,13 @@ const Feed = () => {
 
   const fetcher = url => fetch(url).then(r => r.json())
   const { data, error, isLoading, mutate } = useSWR('/api/prompt', fetcher)
+  setPosts(data)
+  mutate()
 
-  useEffect(() => {
-    if (!isLoading && !error && data) {
-      setPosts(data)
-      mutate()
-    }
-  }, [isLoading, error, data])
+  // useEffect(() => {
+  //   if (!isLoading && !error && data) {
+  //   }
+  // }, [isLoading, error, data])
 
   const filterPosts = (searchText) => {
     const reg = new RegExp(searchText, "i")
