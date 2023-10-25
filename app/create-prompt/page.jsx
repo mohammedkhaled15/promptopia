@@ -22,7 +22,7 @@ const CratePropmpt = () => {
         method: "POST",
         body: JSON.stringify({
           prompt: post.prompt,
-          tag: post.tag
+          tag: post.tag.split(" ").map(s => `#${s}`).join(" ")
         })
       })
       if (res.ok) {
