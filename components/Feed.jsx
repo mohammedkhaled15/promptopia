@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
 import { revalidatePath } from "next/cache"
+// import useSWR from 'swr'
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -25,6 +26,17 @@ const Feed = () => {
 
   const [posts, setPosts] = useState([])
 
+  // const fetcher = url => fetch(url).then(r => r.json())
+  // const { data, error, isLoading, mutate } = useSWR('/api/prompt', fetcher)
+
+  // useEffect(() => {
+  //   if (!isLoading && !error && data) {
+  //     setPosts(data)
+  //     setSearchResults(data)
+  //     mutate()
+  //   }
+  // }, [isLoading, error, data])
+
   const filterPosts = (searchText) => {
     const reg = new RegExp(searchText, "i")
     return posts.filter(post => (
@@ -33,7 +45,6 @@ const Feed = () => {
       reg.test(post.tag)
     ))
   }
-
   const handleSearchChange = e => {
     clearTimeout(searchTimeout)
     setSearchText(e.target.value)
@@ -55,7 +66,6 @@ const Feed = () => {
       const data = await response.json()
       setPosts(data)
       setSearchResults(data)
-      revalidatePath("/")
     }
     getPosts()
   }, [])
