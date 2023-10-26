@@ -1,7 +1,9 @@
 "use client"
+export const dynamic = "force-dynamic"
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
 import useSWR from 'swr'
+import dynamic from "next/dynamic"
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -27,9 +29,9 @@ const Feed = () => {
 
   const fetcher = url => fetch(url).then(r => r.json())
   const { data, error, isLoading, mutate } = useSWR('/api/prompt', fetcher)
-  setPosts(data)
   // mutate()
   useEffect(() => {
+    setPosts(data)
     mutate()
   }, [])
 
