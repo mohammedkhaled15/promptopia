@@ -3,7 +3,6 @@ export const dynamic = "force-dynamic"
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
 import useSWR from 'swr'
-import dynamic from "next/dynamic"
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
