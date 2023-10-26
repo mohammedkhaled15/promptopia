@@ -1,5 +1,4 @@
 "use client"
-export const dynamic = "force-dynamic"
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
 import useSWR from 'swr'
@@ -28,7 +27,7 @@ const Feed = () => {
 
   const fetcher = url => fetch(url).then(r => r.json())
   const { data, error, isLoading, mutate } = useSWR('/api/prompt', fetcher)
-
+  console.log(data)
   useEffect(() => {
     if (!isLoading && !error && data) {
       setPosts(data)
