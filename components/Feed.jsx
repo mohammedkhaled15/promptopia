@@ -1,8 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
-import useSWR from 'swr'
-import { revalidatePath } from "next/cache"
+// import useSWR from 'swr'
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -26,14 +25,15 @@ const Feed = () => {
 
   const [posts, setPosts] = useState([])
 
-  const fetcher = url => fetch(url).then(r => r.json())
-  const { data, error, isLoading, mutate } = useSWR('/api/prompt', fetcher)
-  console.log(data)
-  useEffect(() => {
-    if (!isLoading && !error && data) {
-      setPosts(data)
-    }
-  }, [isLoading, error, data])
+  // const fetcher = url => fetch(url).then(r => r.json())
+  // const { data, error, isLoading, mutate } = useSWR('/api/prompt', fetcher)
+  // console.log(data)
+
+  // useEffect(() => {
+  //   if (!isLoading && !error && data) {
+  //     setPosts(data)
+  //   }
+  // }, [isLoading, error, data])
 
   const filterPosts = (searchText) => {
     const reg = new RegExp(searchText, "i")
@@ -58,16 +58,16 @@ const Feed = () => {
     setSearchResults(filterPosts(tagName))
   }
 
-  // const getPosts = async () => {
-  //   const response = await fetch("/api/prompt", { cache: "no-store", next: { revalidate: 1 } })
-  //   const data = await response.json()
-  //   setPosts(data)
-  // }
-  // useEffect(() => {
-  //   getPosts()
-  // }, [])
+  const getPosts = async () => {
+    const response = await fetch("/api/prompt", { cache: "no-store", next: { revalidate: 1 } })
+    const data = await response.json()
+    setPosts(data)
+  }
+  useEffect(() => {
+    getPosts()
+  }, [])
 
-  revalidatePath("/api/prompt")
+
   return (
     <section className="feed">
       <form className="relative w-full flex-center">

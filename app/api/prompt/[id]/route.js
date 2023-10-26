@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { connectDb } from "@utils/connectDb";
 import Prompt from "@models/prompt";
 
@@ -40,7 +41,7 @@ export const PATCH = async (req, { params }) => {
 export const DELETE = async (req, { params }) => {
   try {
     await connectDb();
-    await Prompt.findByIdAndRemove(params.id)
+    await Prompt.findByIdAndRemove(params.id);
     return new Response("Prompt Deleted!", { status: 200 });
   } catch (error) {
     return new Response("Failed to Delete Prompt", { status: 500 });
